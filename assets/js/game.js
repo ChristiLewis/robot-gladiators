@@ -41,14 +41,21 @@ var fight = function(enemyName) {
       if (confirmSkip) {
         window.alert(playerName + ' has decided to skip this fight. Goodbye!');
         // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 10;
+        // Math.max added to never show a negative number in the game
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("playerMoney", playerMoney)
         break;
       }
     }
 
     // remove enemy's health by subtracting the amount set in the playerAttack variable
-    enemyHealth = enemyHealth - playerAttack;
+    // Math.max added to never show a negative number in the game
+    // enemyHealth = Math.max(0, enemyHealth - playerAttack);
+    // generate random damage value based on player's attack power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
+    
     console.log(
       playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
     );
@@ -67,7 +74,12 @@ var fight = function(enemyName) {
     }
 
     // remove player's health by subtracting the amount set in the enemyAttack variable
-    playerHealth = playerHealth - enemyAttack;
+    // Math.max added to never show a negative number in the game
+    //playerHealth = Math.max(0, playerHealth - enemyAttack);
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
+
     console.log(
       enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
     );
@@ -81,6 +93,13 @@ var fight = function(enemyName) {
       window.alert(playerName + " still has " + playerHealth + " health left.");
     }
   }
+};
+
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
 };
 
 // fight each enemy-robot by looping over them and fighting them one at a time
@@ -99,7 +118,8 @@ var startGame = function() {
 
       var pickedEnemyName = enemyNames[i];
 
-      enemyHealth = 50;
+      //enemyHealth = Math.floor(Math.random() * 21) + 40;
+      enemyHealth = randomNumber(40,60);
 
       fight(pickedEnemyName);
 
@@ -160,7 +180,6 @@ var shop = function() {
     case "refill":
       if (playerMoney >= 7) {
         window.alert("Refilling player's health by 20 for 7 dollars.");
-      
         playerHealth = playerHealth + 20;
         playerMoney = playerMoney - 7;
       }
@@ -172,7 +191,7 @@ var shop = function() {
     case "upgrade":
       if (playerMoney >= 7) {
         window.alert("Upgrading player's attack by 6 for 7 dollars.");
-      
+        
         playerAttack = playerAttack + 6;
         playerMoney = playerMoney - 7;
       }
@@ -194,3 +213,20 @@ var shop = function() {
 //fight(); was the 1st call, the for loop was the 2nd call, now startgame is the 3rd
 // start the game when the page loads
 startGame();
+
+// prints 3.141592653589793
+console.log(Math.PI);
+
+ // rounds to the nearest whole number (4)
+console.log(Math.round(4.4));
+
+ // prints the square root (5)
+console.log(Math.sqrt(25));
+
+// prints 100
+console.log(Math.max(10, 20, 100));
+
+// prints 0
+console.log(Math.max(0, -50));
+
+console.log(Math.random (+1));
