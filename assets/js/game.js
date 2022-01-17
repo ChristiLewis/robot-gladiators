@@ -22,7 +22,7 @@ var enemyAttack = 12;
 //Move the fight function before the for loop
 // Change the fight() funtion to pass in an enemy-robot and then fight it.
 //*var fight = function() {
-//*window.alert("Welcome to Robot Gladiators!");
+//*window.alert("Welcome to Robot Gladiators!"); This was welcome was placed after checking playerHealth see
 //*}
 var fight = function(enemyName) {
   while (playerHealth > 0 && enemyHealth > 0) {
@@ -70,6 +70,20 @@ var fight = function(enemyName) {
     );
 
     // check player's health
+    if (playerHealth > 0) {
+      window.alert("Welcome to BattleboTs! Round" + (i + 1));
+      // pick new enemyName from the array
+      var pickedEnemyName = enemyNames[i];
+      // reset enemyHealth before fight
+      enemyHealth = 50
+      //use debugger -ie remove comments when you need it
+      //debugger;
+      // pass the pickedEnemyName's value into fight function ??
+      fight(pickedEnemyName);  
+    } else {
+      window.alert("You have lost your robot in battle! Game Over!");
+      break;
+    }
     // Game States
     // "LOSE" - Player robot's health is zero or less
     if (playerHealth <= 0) {
