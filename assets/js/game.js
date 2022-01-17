@@ -9,15 +9,18 @@ var playerMoney = 10
 //*console.log(playerName, playerAttack, playerHealth);
 // Make an array by replacing var enemyname with the string of names
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-  console.log(enemyNames[i]);
-  console.log(i);
-  console.log(enemyNames[i] + " is at " + i + " index");
+  //console.log(enemyNames[i]);
+  //console.log(i);
+  //console.log(enemyNames[i] + " is at " + i + " index");
   //console.log(enemyNames.length);
-  //for(var i = 0; i < 3; i++) {
-    //console.log("apple");
-  //}
 var enemyHealth = 50;
 var enemyAttack = 12;
+
+//Snapshot correction-move the console logs below the variables and remove the iteration???why?)
+console.log(enemyNames);
+console.log(enemyNames.length);
+console.log(enemyNames[0]);
+console.log(enemyNames[3]);
 
 //Move the fight function before the for loop
 // Change the fight() funtion to pass in an enemy-robot and then fight it.
@@ -68,24 +71,9 @@ var fight = function(enemyName) {
     console.log(
       enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
     );
-
-    // check player's health
-    if (playerHealth > 0) {
-      window.alert("Welcome to BattleboTs! Round" + (i + 1));
-      // pick new enemyName from the array
-      var pickedEnemyName = enemyNames[i];
-      // reset enemyHealth before fight
-      enemyHealth = 50
-      //use debugger -ie remove comments when you need it
-      //debugger;
-      // pass the pickedEnemyName's value into fight function ??
-      fight(pickedEnemyName);  
-    } else {
-      window.alert("You have lost your robot in battle! Game Over!");
-      break;
-    }
+  
     // Game States
-    // "LOSE" - Player robot's health is zero or less
+    // cHECK PLAYER'S HEALTH "LOSE" - Player robot's health is zero or less
     if (playerHealth <= 0) {
       window.alert(playerName + " has died!");
       break;
@@ -95,10 +83,23 @@ var fight = function(enemyName) {
   }
 };
 
-//*Replace the fight(); function call here at the bottom of the file
+// fight each enemy-robot by looping over them and fighting them one at a time
+// ADD THE IF ELSE STATEMENT RE PLAYERHEALTH 
 for (var i = 0; i < enemyNames.length; i++) {
+  if (playerHealth > 0) {
+    window.alert("Welcome to BattleboTs! Round" + (i + 1));
+    // pick new enemyName from the array
     var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
+    // reset enemyHealth before fight
+    enemyHealth = 50
+    //use debugger -ie remove comments when you need it
+    //debugger;
+    // pass the pickedEnemyName's value into fight function ??
     fight(pickedEnemyName);
+    // IF THE PLAYER ISN'T ALIVE, STOP THE GAME  
+  } else {
+    window.alert("You have lost your robot in battle! Game Over!");
+    break;
+  }
 }
 //fight();
