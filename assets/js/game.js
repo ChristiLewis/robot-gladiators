@@ -1,36 +1,58 @@
 //All prior experiments were removed. VARIABLES REPLACED WITH OBJECT
-//MOVED THE PLAYER AND ENEMY INFO OBJECTS ABOVE THE START GAME CALL
+//MOVED THE PLAYER AND ENEMY INFO OBJECTS ALL THE WAY DOWN ABOVE THE START GAME CALL
 //Snapshot correction-move the console logs below the variables and remove the iteration???why?)
-//console.log(enemyInfo);
-//console.log(enemyInfo.length);
-//console.log(enemyInfo[0]);
-//console.log(enemyInfo[3]);
+
+//THIS NEW FIX NEEDS TO BE ABOVE THE FIGHT FUNCTION
+
+var fightOrSkip = function() {
+  debugger
+  // ask player if they'd like to fight or skip using fightOrSkip function
+  var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+
+  // Enter the conditional recursive function call here!
+  // Conditional Recursive Function Call- CAN REPLACE || WITH A NOT ! LOGIC if (!promptFight) {
+  if (promptFight === "" || promptFight === null) {
+    window.alert("You need to provide a valid answer! Please try again.");
+    return fightOrSkip();
+  }
+  // Add promptfight conversion to all lowercase letters with the toLowerCase() function
+  promptFight = promptFight.toLowerCase();
+  // if player picks "skip" confirm and then stop the loop
+  if (promptFight === "skip") {
+    // confirm player wants to skip
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+    // if yes (true), leave fight
+    if (confirmSkip) {
+      window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+      // subtract money from playerMoney for skipping
+      playerInfo.playerMoney = Math.max(0, playerInfo.money - 10);
+      // return true if player wants to leave
+      return true;
+      shop();
+
+    // if no (false), return to game
+    }
+    else {
+      startGame();
+      return false;
+    }  
+  }
+}
 
 //Move the fight function before the for loop
 // Change the fight() funtion to pass in an enemy-robot and then fight it.
 //*var fight = function() {
-//*window.alert("Welcome to Robot Gladiators!"); This was welcome was placed after checking playerInfo.health see
-//*}
+
 var fight = function(enemy) {
   //console.log(enemy);
   while (playerInfo.health > 0 && enemy.health > 0) {
     // ask player if they'd like to fight or run
-    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-
-    // if player picks "skip" confirm and then stop the loop
-    if (promptFight === "skip" || promptFight === "SKIP") {
-      // confirm player wants to skip
-      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-      // if yes (true), leave fight
-      if (confirmSkip) {
-        window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
-        // subtract money from playerInfo.money for skipping
-        // Math.max added to never show a negative number in the game
-        playerInfo.money = Math.max(0, playerInfo.money - 10);
-        console.log("playerInfo.money", playerInfo.money)
-        break;
-      }
+    //REPLACE VARIABLE EXPRESSION WITH OBJECT FUNCTION
+    // WRAP OBJECT FUNCTION IN AN IF/ELSE IN this WHILE LOOP
+    if (fightOrSkip()) {
+       // if true, leave fight by breaking loop
+      break;
     }
 
     // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
@@ -91,7 +113,7 @@ var randomNumber = function(min, max) {
 // ADD THE IF ELSE STATEMENT RE playerInfo.health 
 // function to start a new game
 var startGame = function() {
-  debugger
+  //debugger
   // reset player stats REFER TO NEW OBJECT FUNCTION (METHOD)
   playerInfo.reset();
   
